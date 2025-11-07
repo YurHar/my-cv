@@ -1,0 +1,77 @@
+<!-- logo-yuri-delta-y.svg -->
+<svg width="720" height="160" viewBox="0 0 720 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Yuri.dev — Delta-Y Logo</title>
+  <desc id="desc">Modern ring with forward cut and a geometric Y beam; navy gradient with light-blue accents and a clean wordmark.</desc>
+
+  <defs>
+    <!-- Palettes -->
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1a34"/>
+      <stop offset="0.55" stop-color="#153e75"/>
+      <stop offset="1" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#93c5fd"/>
+      <stop offset="1" stop-color="#60a5fa"/>
+    </linearGradient>
+
+    <!-- Soft inner shadow -->
+    <filter id="inner" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.6" result="b"/>
+      <feOffset dy="1" in="b" result="o"/>
+      <feComposite in="o" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="2" result="i"/>
+      <feColorMatrix in="i" type="matrix" values="
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 .55 0"/>
+      <feComposite in="SourceGraphic" in2="i" operator="over"/>
+    </filter>
+
+    <!-- Tiny glow -->
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+
+  <!-- ===== Symbol (left) ===== -->
+  <g transform="translate(28,28)">
+    <!-- Base ring -->
+    <circle cx="52" cy="52" r="48" fill="none" stroke="url(#navy)" stroke-width="16" filter="url(#inner)"/>
+
+    <!-- Forward cut / motion slice -->
+    <path d="M 92 42 a 48 48 0 0 1 0 20" fill="none" stroke="url(#accent)" stroke-width="16" stroke-linecap="round"/>
+
+    <!-- Geometric Y beam (centered, sharp) -->
+    <g transform="translate(52,52)">
+      <!-- upper arms -->
+      <path d="M0 0 L-19 -24" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+      <path d="M0 0 L19 -24"  stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+      <!-- stem -->
+      <path d="M0 2 L0 26"    stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+    </g>
+
+    <!-- Accent spark at the tip of the cut -->
+    <circle cx="100" cy="52" r="4.5" fill="#93c5fd" filter="url(#glow)" />
+  </g>
+
+  <!-- ===== Wordmark (right) ===== -->
+  <g transform="translate(170,40)">
+    <!-- main -->
+    <text x="0" y="36"
+      font-size="36" font-weight="800"
+      font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Inter,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif"
+      fill="#ffffff" letter-spacing=".3">
+      Yuri<tspan fill="#93c5fd">.</tspan>dev
+    </text>
+    <!-- subtle underline accent -->
+    <rect x="0" y="48" width="142" height="3" rx="1.5" fill="url(#accent)" opacity=".35"/>
+    <!-- tagline (optional; remove if not needed) -->
+    <text x="0" y="64"
+      font-size="14" font-weight="500"
+      font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Inter,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif"
+      fill="rgba(255,255,255,0.72)" letter-spacing=".2">
+      Frontend Engineer • React • Next.js • TypeScript
+    </text>
+  </g>
+</svg>
