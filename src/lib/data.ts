@@ -19,12 +19,7 @@ export const PROJECTS: Project[] = [
     title: "e-social.am",
     description:
       "Armenia’s unified social-protection portal: a single account where citizens apply for and track a wide range of benefits and services—housing and hardship programs, family and employment services, disability-related workflows, and more. The platform guides users through the right application, verifies data against state registers, and provides status updates/notifications, serving as the official online channel for many MLSA programs.",
-    tech: [
-      "Public service portal",
-      "Eligibility flows",
-      "Account & status tracking",
-      "Gov registry checks",
-    ],
+    tech: ["React", "Ant Design", "WCAG 2.1", "TanStack Query", "API"],
     link: "https://e-social.am/",
   },
   {
