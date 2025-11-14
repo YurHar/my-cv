@@ -83,7 +83,7 @@ export default function ProjectsSection() {
             className={cn(
               "text-2xl sm:text-3xl font-bold tracking-tight",
               "bg-clip-text text-transparent",
-              "bg-gradient-to-r from-sky-700 via-indigo-600 to-purple-600",
+              "bg-linear-to-r from-sky-700 via-indigo-600 to-purple-600",
               "dark:from-sky-400 dark:via-indigo-400 dark:to-purple-400"
             )}
           >
@@ -93,7 +93,7 @@ export default function ProjectsSection() {
         <div
           className={cn(
             "mt-3 h-0.5 w-32 rounded-full",
-            "bg-gradient-to-r from-sky-600 to-indigo-600",
+            "bg-linear-to-r from-sky-600 to-indigo-600",
             "dark:from-sky-400 dark:to-indigo-400"
           )}
         />
@@ -118,14 +118,14 @@ export default function ProjectsSection() {
               transition={{ duration: 0.45, delay: 0.04 * i }}
               className={cn(
                 "group relative rounded-2xl transition-all",
-                "bg-white/70 dark:bg-slate-900/60 supports-[backdrop-filter]:backdrop-blur",
+                "bg-white/70 dark:bg-slate-900/60 supports-backdrop-filter:backdrop-blur",
                 "border border-slate-200/70 dark:border-slate-800/80",
                 "hover:shadow-[0_14px_36px_-14px_rgba(2,6,23,0.25)] dark:hover:shadow-[0_14px_36px_-14px_rgba(0,0,0,0.45)]",
                 "focus-within:ring-2 focus-within:ring-sky-500/60 focus-within:ring-offset-2"
               )}
             >
               {/* subtle top edge glow */}
-              <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-sky-500/40 to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-linear-to-r from-transparent via-sky-500/40 to-transparent" />
               <div className="rounded-2xl p-2 sm:p-2.5">
                 {p.link ? (
                   <Link

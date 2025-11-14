@@ -21,7 +21,7 @@ export default function SkillsSection() {
             className={cn(
               "text-2xl sm:text-3xl font-bold tracking-tight",
               "bg-clip-text text-transparent",
-              "bg-gradient-to-r from-sky-700 via-indigo-600 to-purple-600",
+              "bg-linear-to-r from-sky-700 via-indigo-600 to-purple-600",
               "dark:from-sky-400 dark:via-indigo-400 dark:to-purple-400"
             )}
           >
@@ -31,7 +31,7 @@ export default function SkillsSection() {
         <div
           className={cn(
             "mt-3 h-0.5 w-32 rounded-full",
-            "bg-gradient-to-r from-sky-600 to-indigo-600",
+            "bg-linear-to-r from-sky-600 to-indigo-600",
             "dark:from-sky-400 dark:to-indigo-400"
           )}
         />

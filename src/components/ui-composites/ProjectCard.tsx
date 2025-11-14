@@ -34,7 +34,6 @@ export default function ProjectCard({
 
   const descId = `${title.replace(/\s+/g, "-").toLowerCase()}-desc`;
 
-  // Prevent parent link navigation when toggling description
   const stopLink = (e: MouseEvent | KeyboardEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -52,7 +51,6 @@ export default function ProjectCard({
     }
   };
 
-  // Open external link from icon without creating an inner <a>
   const onOpenExternal = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     if (link) window.open(link, "_blank", "noopener,noreferrer");
@@ -62,17 +60,15 @@ export default function ProjectCard({
     <Card
       className={[
         "group relative overflow-hidden rounded-2xl transition-all cursor-pointer",
-        "bg-white/70 dark:bg-slate-900/60 supports-[backdrop-filter]:backdrop-blur",
+        "bg-white/70 dark:bg-slate-900/60 supports-backdrop-filter:backdrop-blur",
         "border border-slate-200/70 dark:border-slate-800/80",
         "hover:shadow-[0_14px_36px_-14px_rgba(2,6,23,0.25)] dark:hover:shadow-[0_14px_36px_-14px_rgba(0,0,0,0.45)]",
         "focus-within:ring-2 focus-within:ring-sky-500/60 focus-within:ring-offset-2",
       ].join(" ")}
     >
-      {/* subtle top edge glow */}
-      <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-sky-500/40 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-linear-to-r from-transparent via-sky-500/40 to-transparent" />
 
-      {/* soft diagonal wash on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-sky-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div className="absolute inset-0 bg-linear-to-br from-sky-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
       <CardHeader className="relative z-10">
         <div className="flex items-start justify-between gap-3">
@@ -92,7 +88,6 @@ export default function ProjectCard({
           ) : null}
         </div>
 
-        {/* Description with show more/less */}
         <CardDescription id={descId} className="text-slate-600 dark:text-slate-300">
           {expanded ? description : shortText}{" "}
           {isLong && (
@@ -109,8 +104,7 @@ export default function ProjectCard({
           )}
         </CardDescription>
 
-        {/* small accent underline */}
-        <div className="mt-2 h-0.5 w-20 rounded-full bg-gradient-to-r from-sky-600 to-indigo-600 dark:from-sky-400 dark:to-indigo-400" />
+        <div className="mt-2 h-0.5 w-20 rounded-full bg-linear-to-r from-sky-600 to-indigo-600 dark:from-sky-400 dark:to-indigo-400" />
       </CardHeader>
 
       <CardContent className="relative z-10">

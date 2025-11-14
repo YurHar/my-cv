@@ -24,7 +24,7 @@ export default function HomePage() {
     <section
       className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden
         text-slate-900 dark:text-slate-100
-        bg-gradient-to-b from-slate-50 via-white to-slate-50
+        bg-linear-to-b from-slate-50 via-white to-slate-50
         dark:from-slate-950 dark:via-slate-900 dark:to-slate-950
         px-6 py-16 sm:py-24
       "
@@ -40,7 +40,7 @@ export default function HomePage() {
       />
       <motion.div
         className="
-          pointer-events-none absolute w-[28rem] h-[28rem] rounded-full blur-3xl -bottom-10 right-6 sm:right-20
+          pointer-events-none absolute w-md h-112 rounded-full blur-3xl -bottom-10 right-6 sm:right-20
           bg-violet-500/20 dark:bg-violet-500/15
         "
         animate={{ y: [0, -30, 0] }}

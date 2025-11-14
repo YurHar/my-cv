@@ -6,7 +6,6 @@ import { Menu, X, ChevronRight } from "lucide-react";
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
   SheetTitle,
   SheetTrigger,
   SheetClose,
@@ -68,7 +67,7 @@ export default function Header() {
           <ThemeToggle />
           <Sheet>
             <SheetTrigger
-              className="inline-flex items-center justify-center p-2 rounded-xl border border-slate-200/70 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 supports-[backdrop-filter]:backdrop-blur"
+              className="inline-flex items-center justify-center p-2 rounded-xl border border-slate-200/70 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 supports-backdrop-filter:backdrop-blur"
               aria-label="Open menu"
             >
               <Menu className="h-5 w-5" />
@@ -79,7 +78,7 @@ export default function Header() {
               side="right"
               className={cn(
                 "w-[86vw] max-w-sm p-0 border-l",
-                "bg-white/80 dark:bg-slate-900/80 supports-[backdrop-filter]:backdrop-blur [&>button]:hidden"
+                "bg-white/80 dark:bg-slate-900/80 supports-backdrop-filter:backdrop-blur [&>button]:hidden"
               )}
             >
               {/* Header inside sheet */}

@@ -18,13 +18,13 @@ export default function CapabilityItem({
       className={cn(
         "relative overflow-hidden rounded-xl border",
         "border-slate-200 dark:border-slate-800",
-        "bg-white/60 dark:bg-slate-900/50 supports-[backdrop-filter]:backdrop-blur"
+        "bg-white/60 dark:bg-slate-900/50 supports-backdrop-filter:backdrop-blur"
       )}
     >
       {/* shimmering accent on the right */}
       <motion.span
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 w-10 md:w-12 bg-gradient-to-l from-sky-500/15 via-transparent to-transparent"
+        className="pointer-events-none absolute inset-y-0 right-0 w-10 md:w-12 bg-linear-to-l from-sky-500/15 via-transparent to-transparent"
         initial={{ opacity: 0 }}
         whileHover={{ opacity: 1 }}
         transition={{ duration: 0.3 }}

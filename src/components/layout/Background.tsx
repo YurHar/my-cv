@@ -12,7 +12,7 @@ export default function Background() {
       <div
         className={cn(
           "fixed inset-0 -z-10",
-          "bg-gradient-to-b from-slate-50 via-white to-slate-50",
+          "bg-linear-to-b from-slate-50 via-white to-slate-50",
           "dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"
         )}
         aria-hidden

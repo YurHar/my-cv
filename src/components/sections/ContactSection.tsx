@@ -48,7 +48,7 @@ export default function ContactSection() {
             className={cn(
               "fixed top-4 left-1/2 -translate-x-1/2 z-50",
               "inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm",
-              "bg-white/90 dark:bg-slate-900/90 supports-[backdrop-filter]:backdrop-blur",
+              "bg-white/90 dark:bg-slate-900/90 supports-backdrop-filter:backdrop-blur",
               "border border-slate-200 dark:border-slate-800 shadow-lg"
             )}
             role="status"
@@ -71,7 +71,7 @@ export default function ContactSection() {
             className={cn(
               "text-2xl sm:text-3xl font-bold tracking-tight",
               "bg-clip-text text-transparent",
-              "bg-gradient-to-r from-sky-700 via-indigo-600 to-purple-600",
+              "bg-linear-to-r from-sky-700 via-indigo-600 to-purple-600",
               "dark:from-sky-400 dark:via-indigo-400 dark:to-purple-400"
             )}
           >
@@ -81,7 +81,7 @@ export default function ContactSection() {
         <div
           className={cn(
             "mt-3 h-0.5 w-32 rounded-full",
-            "bg-gradient-to-r from-sky-600 to-indigo-600",
+            "bg-linear-to-r from-sky-600 to-indigo-600",
             "dark:from-sky-400 dark:to-indigo-400"
           )}
         />
