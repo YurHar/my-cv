@@ -5,9 +5,10 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Background from "@/components/layout/Background";
-import { siteMetadata } from "@/lib/metadata";
+import { siteMetadata, siteViewport } from "@/lib/metadata";
 
 export const metadata: Metadata = siteMetadata;
+export const viewport = siteViewport;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

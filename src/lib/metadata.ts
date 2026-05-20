@@ -1,5 +1,5 @@
 // lib/metadata.ts
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 export const SITE = {
   name: "Yuri.dev",
@@ -31,6 +31,9 @@ export const siteMetadata: Metadata = {
     title: `${SITE.name} — Front-End Developer`,
     description: SITE.description,
   },
+};
+
+export const siteViewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#0b1220" },

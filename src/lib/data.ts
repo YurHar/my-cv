@@ -5,12 +5,13 @@ export const HERO: HeroInfo = {
   role: "Front-End Developer",
   blurb:
     "Front-end developer building modern, accessible apps with React/Next.js and TypeScript.",
-  avatar: "/avatar.jpg",
+  avatar:
+    "https://media.licdn.com/dms/image/v2/D4E03AQH1cNK6xTHJ0Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1668925813651?e=1781136000&v=beta&t=JD2NeUc8CaAaLWnbEhD_mADqalib4o6oG4FEv9b9Hwo",
   links: {
     github: "https://github.com/YurHar",
     linkedin: "https://www.linkedin.com/in/yuri-harutyunyan/",
     email: "mailto:yuri.harutyunyan.a@gmail.com",
-    cv: "/Yuri_Harutyunyan_CV.pdf",
+    cv: "/Yuri_HarutyunyanCV.pdf",
   },
 };
 
