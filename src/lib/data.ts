@@ -1,4 +1,4 @@
-import { HeroInfo, Project, Experience, Education, Language } from "./types";
+import { HeroInfo, Project, Experience, Education, Language, Stat } from "./types";
 
 export const HERO: HeroInfo = {
   name: "Yuri Harutyunyan",
@@ -15,6 +15,14 @@ export const HERO: HeroInfo = {
     // cv: "/Yuri_HarutyunyanCV.pdf", — re-enable once the updated Senior Frontend Engineer CV is in public/
   },
 };
+
+// Every figure here comes from the CV summary
+export const HERO_STATS: Stat[] = [
+  { value: "5+", label: "Years building production React & TypeScript apps" },
+  { value: "7+", label: "Platforms built" },
+  { value: "50,000+", label: "Users served across those platforms combined" },
+  { value: "50+", label: "Form types in the e-social.am form architecture" },
+];
 
 export const PROJECTS: Project[] = [
   {
@@ -49,6 +57,7 @@ export const PROJECTS: Project[] = [
     description:
       "A Next.js project showcasing interactive UI, motion design, and smooth scrolling, with a focus on frontend architecture.",
     tech: ["Next.js"],
+    link: "https://aether-studio-coral.vercel.app/",
   },
   {
     title: "e-disability.am",

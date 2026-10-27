@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Mail, Github, Linkedin, Copy, Check } from "lucide-react";
+import { Github, Linkedin, Copy, Check, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
-import Tile from "@/components/skills/Tile";
-import { Button } from "@/components/ui/button";
+import SectionHeading from "@/components/ui-composites/SectionHeading";
 import { HERO } from "@/lib/data";
+import { trackPointer } from "@/lib/utils";
 
 export default function ContactSection() {
-  const { links } = HERO ?? { links: {} as Record<string, string> };
+  const { links, location } = HERO;
   const github = links.github ?? "https://github.com/";
   const linkedin = links.linkedin ?? "https://www.linkedin.com/in/yuri-harutyunyan/";
   const emailHref = links.email ?? "mailto:yuri.harutyunyan.a@gmail.com";
@@ -36,105 +35,83 @@ export default function ContactSection() {
   }, []);
 
   return (
-    <section id="contact" className="relative mx-auto max-w-6xl px-4 py-16 sm:py-20">
+    <section id="contact" className="relative mx-auto max-w-6xl px-4 py-16 sm:py-24">
       {/* Top-center animated toast */}
       <AnimatePresence>
         {copied && (
           <motion.div
-            initial={{ opacity: 0, y: -12, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.98 }}
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
             transition={{ type: "spring", stiffness: 300, damping: 24 }}
-            className={cn(
-              "fixed top-4 left-1/2 -translate-x-1/2 z-50",
-              "inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm",
-              "bg-white/90 dark:bg-slate-900/90 supports-backdrop-filter:backdrop-blur",
-              "border border-slate-200 dark:border-slate-800 shadow-lg"
-            )}
+            className="fixed top-20 left-1/2 -translate-x-1/2 z-50 inline-flex items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-sm shadow-lg backdrop-blur"
             role="status"
             aria-live="polite"
           >
-            <span className="inline-flex h-2 w-2 rounded-full bg-sky-500 animate-pulse" />
-            <span className="text-slate-800 dark:text-slate-200">Email copied to clipboard</span>
-            <Check className="h-4 w-4 text-sky-600 dark:text-sky-400" />
+            <Check className="h-4 w-4 text-primary" />
+            <span className="text-foreground">Email copied to clipboard</span>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Header */}
-      <div className="mb-10 sm:mb-12">
-        <div className="flex items-center gap-3">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-sky-600/10 dark:bg-sky-500/15 ring-1 ring-sky-600/20 dark:ring-sky-400/20">
-            <Mail className="h-4.5 w-4.5 text-sky-700 dark:text-sky-400" />
-          </span>
-          <h2
-            className={cn(
-              "text-2xl sm:text-3xl font-bold tracking-tight",
-              "bg-clip-text text-transparent",
-              "bg-linear-to-r from-sky-700 via-indigo-600 to-purple-600",
-              "dark:from-sky-400 dark:via-indigo-400 dark:to-purple-400"
-            )}
-          >
-            Contact
-          </h2>
-        </div>
-        <div
-          className={cn(
-            "mt-3 h-0.5 w-32 rounded-full",
-            "bg-linear-to-r from-sky-600 to-indigo-600",
-            "dark:from-sky-400 dark:to-indigo-400"
-          )}
-        />
-      </div>
+      <SectionHeading index="04" eyebrow="Get in touch" title="Contact" />
 
-      {/* Content */}
       <motion.div
-        initial={{ opacity: 0, y: 14 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.45 }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        onPointerMove={trackPointer}
+        className="surface p-6 sm:p-12"
       >
-        <Tile title="Get in touch" subtitle="Find me on these platforms">
-          <div className="flex flex-wrap items-center gap-3">
-            <Button asChild variant="outline" className="rounded-xl">
-              <a href={github} target="_blank" rel="noreferrer" aria-label="Open GitHub">
-                <Github className="mr-2 h-4 w-4" />
-                GitHub
-              </a>
-            </Button>
+        <p className="eyebrow">Email</p>
+        <div className="mt-4 flex flex-wrap items-end gap-x-6 gap-y-4">
+          <a
+            href={emailHref}
+            className="group font-display text-[clamp(1.75rem,5.5vw,4rem)] leading-none tracking-tight text-foreground break-all transition-colors hover:text-primary"
+          >
+            {emailText}
+            <ArrowUpRight className="ml-2 inline h-[0.6em] w-[0.6em] align-baseline text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-primary" />
+          </a>
+          <button
+            type="button"
+            onClick={copyEmail}
+            aria-label="Copy email address"
+            title="Copy email"
+            className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary cursor-pointer"
+          >
+            <Copy className="h-4 w-4" />
+            Copy email
+          </button>
+        </div>
 
-            <Button asChild variant="outline" className="rounded-xl">
-              <a href={linkedin} target="_blank" rel="noreferrer" aria-label="Open LinkedIn">
-                <Linkedin className="mr-2 h-4 w-4" />
-                LinkedIn
-              </a>
-            </Button>
-
-            <Button asChild variant="outline" className="rounded-xl">
-              <a href={emailHref} aria-label="Send Email">
-                <Mail className="mr-2 h-4 w-4" />
-                Email
-              </a>
-            </Button>
-
-            {/* Copy email helper */}
-            <Button
-              type="button"
-              variant="ghost"
-              className="rounded-xl hover:bg-sky-500/10 hover:text-sky-700 dark:hover:text-sky-300"
-              onClick={copyEmail}
-              aria-label="Copy email address"
-              title="Copy email"
+        <div className="mt-12 grid gap-4 border-t border-border pt-8 sm:grid-cols-[1fr_auto] sm:items-center">
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={github}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open GitHub"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm text-foreground transition-colors hover:border-primary/50 hover:text-primary"
             >
-              <Copy className="mr-2 h-4 w-4" />
-              Copy email
-            </Button>
+              <Github className="h-4 w-4" />
+              GitHub
+            </a>
+            <a
+              href={linkedin}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open LinkedIn"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm text-foreground transition-colors hover:border-primary/50 hover:text-primary"
+            >
+              <Linkedin className="h-4 w-4" />
+              LinkedIn
+            </a>
           </div>
-
-          <p className="mt-6 text-sm text-slate-600 dark:text-slate-300">
-            I’m most responsive on LinkedIn and email.
-          </p>
-        </Tile>
+          <div className="text-sm text-muted-foreground sm:text-right">
+            <p>I’m most responsive on LinkedIn and email.</p>
+            {location ? <p className="mt-1">{location}</p> : null}
+          </div>
+        </div>
       </motion.div>
     </section>
   );

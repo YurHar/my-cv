@@ -32,6 +32,8 @@ export type Education = { title: string; school: string };
 
 export type Language = { name: string; level: string };
 
+export type Stat = { value: string; label: string };
+
 export type HeroInfo = {
   name: string;
   role: string;

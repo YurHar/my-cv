@@ -6,48 +6,24 @@ import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
-  const { theme, setTheme, systemTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  // Avoid hydration mismatch by rendering nothing until mounted
-  if (!mounted) return null;
+  // Same-size placeholder until mounted, so the header doesn't shift
+  if (!mounted) return <span className="inline-block h-9 w-9" aria-hidden />;
 
-  const current = theme === "system" ? systemTheme : theme;
-  const isDark = current === "dark";
+  const isDark = resolvedTheme === "dark";
 
   return (
     <button
       type="button"
-      onClick={() => setTheme(current === "dark" ? "light" : "dark")}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-xl border bg-background/70 backdrop-blur hover:opacity-80 cursor-pointer"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background/60 backdrop-blur text-muted-foreground transition-colors hover:text-primary hover:border-primary/40 cursor-pointer"
       aria-label="Toggle theme"
-      title={`Switch to ${current === "dark" ? "light" : "dark"} mode`}
+      title={`Switch to ${isDark ? "light" : "dark"} mode`}
     >
-      {isDark ? (
-        // In dark mode we show the Sun (suggesting a switch TO light)
-        <Sun
-          className={[
-            "h-5 w-5",
-            "text-amber-400", // base
-            "transition-colors",
-            "group-hover:text-amber-300", // hover
-            "group-active:text-amber-200", // tap
-          ].join(" ")}
-        />
-      ) : (
-        // In light mode we show the Moon (suggesting a switch TO dark)
-        <Moon
-          className={[
-            "h-5 w-5",
-            "text-indigo-600", // base
-            "transition-colors",
-            "group-hover:text-indigo-500", // hover
-            "group-active:text-indigo-400", // tap
-            "dark:text-indigo-300", // safety if rendered under dark unexpectedly
-          ].join(" ")}
-        />
-      )}
+      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
     </button>
   );
 }

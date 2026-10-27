@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronRight } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -23,22 +24,33 @@ const NAV_ITEMS = [
 
 export default function Header() {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-white/70 backdrop-blur dark:bg-slate-900/70">
+    <header
+      className={cn(
+        "sticky top-0 z-50 transition-colors duration-500",
+        scrolled
+          ? "border-b border-border bg-background/75 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
+      )}
+    >
       <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link
-          href="/"
-          className="font-extrabold tracking-tight text-lg text-slate-900 dark:text-slate-100"
-        >
-          <span className="sr-only">Yuri.dev</span>
-          Yuri.dev
+        <Link href="/" className="font-display text-2xl tracking-tight text-foreground">
+          Yuri<span className="text-primary">.</span>dev
         </Link>
 
         {/* Right side (desktop): nav + toggle */}
-        <div className="hidden md:flex items-center gap-6">
-          <nav className="flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-8">
+          <nav className="flex items-center gap-7">
             {NAV_ITEMS.map((item) => {
               const active = pathname === item.href;
               return (
@@ -46,14 +58,15 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "text-sm transition-colors hover:opacity-80",
-                    active
-                      ? "font-semibold underline underline-offset-8 text-slate-900 dark:text-slate-100"
-                      : "text-muted-foreground"
+                    "relative text-[13px] tracking-wide transition-colors",
+                    active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                   )}
                   aria-current={active ? "page" : undefined}
                 >
                   {item.label}
+                  {active ? (
+                    <span className="absolute -bottom-2 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-primary" />
+                  ) : null}
                 </Link>
               );
             })}
@@ -67,27 +80,21 @@ export default function Header() {
           <ThemeToggle />
           <Sheet>
             <SheetTrigger
-              className="inline-flex items-center justify-center p-2 rounded-xl border border-slate-200/70 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 supports-backdrop-filter:backdrop-blur"
+              className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-border bg-background/60 backdrop-blur"
               aria-label="Open menu"
             >
-              <Menu className="h-5 w-5" />
+              <Menu className="h-4.5 w-4.5" />
             </SheetTrigger>
 
-            {/* Wider, comfy mobile sheet */}
             <SheetContent
               side="right"
-              className={cn(
-                "w-[86vw] max-w-sm p-0 border-l",
-                "bg-white/80 dark:bg-slate-900/80 supports-backdrop-filter:backdrop-blur [&>button]:hidden"
-              )}
+              className="w-[86vw] max-w-sm p-0 border-l border-border bg-background/95 backdrop-blur-md [&>button]:hidden"
             >
               {/* Header inside sheet */}
-              <div className="flex items-center justify-between px-4 py-3 border-b">
-                <SheetTitle className="text-base font-semibold">
-                  Menu
-                </SheetTitle>
+              <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+                <SheetTitle className="eyebrow">Menu</SheetTitle>
                 <SheetClose
-                  className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-slate-200/70 dark:border-slate-800/80"
+                  className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-border"
                   aria-label="Close menu"
                 >
                   <X className="h-4.5 w-4.5" />
@@ -95,41 +102,32 @@ export default function Header() {
               </div>
 
               {/* Nav list */}
-              <nav className="px-2 py-2">
+              <nav className="px-5 py-4">
                 <ul className="flex flex-col">
-                  {NAV_ITEMS.map((item) => {
+                  {NAV_ITEMS.map((item, i) => {
                     const active = pathname === item.href;
                     return (
-                      <li key={item.href}>
+                      <li key={item.href} className="border-b border-border last:border-b-0">
                         <SheetClose asChild>
                           <Link
                             href={item.href}
-                            className={cn(
-                              "group block rounded-xl px-3 py-3.5 my-1",
-                              "text-[15px] leading-none",
-                              "transition-colors",
-                              active
-                                ? "bg-sky-500/10 text-slate-900 dark:text-slate-100 border border-sky-500/20"
-                                : "text-slate-600 dark:text-slate-300 hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
-                            )}
+                            className="group flex items-baseline justify-between py-4"
                             aria-current={active ? "page" : undefined}
                           >
-                            <div className="flex items-center justify-between">
+                            <span className="flex items-baseline gap-3">
+                              <span className="text-xs tabular-nums text-muted-foreground">
+                                0{i + 1}
+                              </span>
                               <span
                                 className={cn(
-                                  "font-medium",
-                                  active && "underline underline-offset-4"
+                                  "font-display text-3xl",
+                                  active ? "text-primary" : "text-foreground"
                                 )}
                               >
                                 {item.label}
                               </span>
-                              <ChevronRight
-                                className={cn(
-                                  "h-4 w-4 opacity-60 transition-transform group-hover:translate-x-0.5",
-                                  active && "opacity-100"
-                                )}
-                              />
-                            </div>
+                            </span>
+                            <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                           </Link>
                         </SheetClose>
                       </li>
@@ -138,16 +136,8 @@ export default function Header() {
                 </ul>
               </nav>
 
-              {/* Divider */}
-              <div className="px-4">
-                <div className="h-px bg-slate-200 dark:bg-slate-800 rounded-full" />
-              </div>
-
-              {/* Footer area (optional) */}
-              <div className="px-4 py-3 text-xs text-slate-500 dark:text-slate-400">
-                <p className="leading-relaxed">
-                  © {new Date().getFullYear()} Yuri.dev — Crafted with care.
-                </p>
+              <div className="px-5 py-3 text-xs text-muted-foreground">
+                © {new Date().getFullYear()} Yuri Harutyunyan
               </div>
             </SheetContent>
           </Sheet>

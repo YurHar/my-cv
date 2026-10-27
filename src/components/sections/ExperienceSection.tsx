@@ -1,139 +1,102 @@
 "use client";
 
-import { Briefcase } from "lucide-react";
 import { EXPERIENCE, EARLIER_EXPERIENCE, EDUCATION, LANGUAGES } from "@/lib/data";
 import ExperienceItem from "@/components/ui-composites/ExperienceItem";
+import SectionHeading from "@/components/ui-composites/SectionHeading";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn, trackPointer } from "@/lib/utils";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+function Reveal({ children, className, delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.8, delay, ease: EASE }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export default function ExperienceSection() {
   return (
-    <section
-      id="experience"
-      className={cn("relative mx-auto mt-6 max-w-6xl px-4 py-16 sm:py-20")}
-    >
-      {/* Header */}
-      <div className="mb-10 sm:mb-12">
-        <div className="flex items-center gap-3">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-sky-600/10 dark:bg-sky-500/15 ring-1 ring-sky-600/20 dark:ring-sky-400/20">
-            <Briefcase className="h-4.5 w-4.5 text-sky-700 dark:text-sky-400" />
-          </span>
-          <h2
-            className={cn(
-              "text-2xl sm:text-3xl font-bold tracking-tight",
-              "bg-clip-text text-transparent",
-              "bg-linear-to-r from-sky-700 via-indigo-600 to-purple-600",
-              "dark:from-sky-400 dark:via-indigo-400 dark:to-purple-400"
-            )}
-          >
-            Experience
-          </h2>
-        </div>
-        <div
-          className={cn(
-            "mt-3 h-0.5 w-32 rounded-full",
-            "bg-linear-to-r from-sky-600 to-indigo-600",
-            "dark:from-sky-400 dark:to-indigo-400"
-          )}
-        />
-      </div>
+    <section id="experience" className={cn("relative mx-auto max-w-6xl px-4 py-16 sm:py-24")}>
+      <SectionHeading index="02" eyebrow="Career" title="Experience" />
 
-      {/* List */}
-      <motion.div
-        className="space-y-5 sm:space-y-6"
-        initial="hidden"
-        animate="show"
-        variants={{
-          hidden: { opacity: 1 },
-          show: { opacity: 1, transition: { staggerChildren: 0.07 } },
-        }}
-      >
+      {/* Timeline */}
+      <ol className="relative space-y-8 sm:space-y-10 pl-6 sm:pl-10">
+        <span
+          aria-hidden
+          className="absolute left-0 top-2 bottom-2 w-px bg-linear-to-b from-primary/70 via-border to-transparent"
+        />
         {EXPERIENCE.map((job, idx) => (
-          <motion.div
-            key={idx}
-            variants={{
-              hidden: { opacity: 0, y: 14 },
-              show: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.45, delay: 0.03 * idx }}
-            className={[
-              "group relative overflow-hidden rounded-2xl transition-all cursor-pointer",
-              "bg-white/70 dark:bg-slate-900/60 supports-backdrop-filter:backdrop-blur",
-              "border border-slate-200/70 dark:border-slate-800/80",
-              "hover:shadow-[0_14px_36px_-14px_rgba(2,6,23,0.25)] dark:hover:shadow-[0_14px_36px_-14px_rgba(0,0,0,0.45)]",
-              "focus-within:ring-2 focus-within:ring-sky-500/60 focus-within:ring-offset-2",
-            ].join(" ")}
-          >
-            {/* subtle top edge glow */}
-            <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-linear-to-r from-transparent via-sky-500/40 to-transparent" />
-            <div className="rounded-2xl p-3 sm:p-4">
+          <li key={job.company} className="relative">
+            <span
+              aria-hidden
+              className="absolute -left-6 sm:-left-10 top-8 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-primary ring-4 ring-background"
+            />
+            <Reveal delay={0.05 * idx}>
               <ExperienceItem {...job} />
-            </div>
-          </motion.div>
+            </Reveal>
+          </li>
         ))}
-      </motion.div>
+      </ol>
 
       {/* Earlier experience (compact) */}
-      <div className="mt-12">
-        <h3 className="mb-4 text-lg font-semibold text-slate-900 dark:text-slate-100">
-          Earlier Experience
-        </h3>
+      <Reveal className="mt-20">
+        <p className="eyebrow mb-5">Earlier Experience</p>
         <div className="space-y-3">
           {EARLIER_EXPERIENCE.map((job) => (
-            <div
-              key={job.company}
-              className="rounded-2xl border border-slate-200/70 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 supports-backdrop-filter:backdrop-blur px-5 py-4"
-            >
-              <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                <p className="font-medium text-slate-800 dark:text-slate-200">
-                  {job.role} · <span className="font-normal text-muted-foreground">{job.company}</span>
+            <div key={job.company} onPointerMove={trackPointer} className="surface px-6 py-5">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <p className="text-foreground">
+                  <span className="font-display text-2xl">{job.role}</span>
+                  <span className="text-muted-foreground"> · {job.company}</span>
                 </p>
-                <span className="text-xs text-muted-foreground">{job.time}</span>
+                <span className="text-xs tabular-nums text-muted-foreground">{job.time}</span>
               </div>
               {job.bullets.map((b) => (
-                <p key={b} className="mt-1 text-sm text-muted-foreground">
+                <p key={b} className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {b}
                 </p>
               ))}
             </div>
           ))}
         </div>
-      </div>
+      </Reveal>
 
       {/* Education & languages */}
-      <div className="mt-12">
-        <h3 className="mb-4 text-lg font-semibold text-slate-900 dark:text-slate-100">
-          Education &amp; Languages
-        </h3>
+      <Reveal className="mt-16">
+        <p className="eyebrow mb-5">Education &amp; Languages</p>
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-2xl border border-slate-200/70 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 supports-backdrop-filter:backdrop-blur px-5 py-4">
-            <h4 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-              Education &amp; Training
-            </h4>
-            <ul className="grid gap-1.5 text-sm">
+          <div onPointerMove={trackPointer} className="surface px-6 py-5">
+            <h2 className="font-display text-2xl text-foreground">Education &amp; Training</h2>
+            <ul className="mt-4 divide-y divide-border text-sm">
               {EDUCATION.map((e) => (
-                <li key={e.title}>
-                  <span className="text-slate-800 dark:text-slate-200">{e.title}</span>
-                  <span className="text-muted-foreground"> — {e.school}</span>
+                <li key={e.title} className="flex flex-wrap justify-between gap-x-4 py-2.5">
+                  <span className="text-foreground">{e.title}</span>
+                  <span className="text-muted-foreground">{e.school}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl border border-slate-200/70 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 supports-backdrop-filter:backdrop-blur px-5 py-4">
-            <h4 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-              Languages
-            </h4>
-            <ul className="grid gap-1.5 text-sm">
+          <div onPointerMove={trackPointer} className="surface px-6 py-5">
+            <h2 className="font-display text-2xl text-foreground">Languages</h2>
+            <ul className="mt-4 divide-y divide-border text-sm">
               {LANGUAGES.map((l) => (
-                <li key={l.name}>
-                  <span className="text-slate-800 dark:text-slate-200">{l.name}</span>
-                  <span className="text-muted-foreground"> — {l.level}</span>
+                <li key={l.name} className="flex flex-wrap justify-between gap-x-4 py-2.5">
+                  <span className="text-foreground">{l.name}</span>
+                  <span className="text-muted-foreground">{l.level}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -1,23 +1,16 @@
-"use client";
-
-import dynamic from "next/dynamic";
-import { cn } from "@/lib/utils";
-
-// Client-only animated blobs so SSR and client DOM match
-const BackgroundBlobs = dynamic(() => import("./BackgroundBlobs"), { ssr: false });
+import BackgroundBlobs from "./BackgroundBlobs";
 
 export default function Background() {
   return (
     <>
+      <div className="fixed inset-0 -z-20 bg-background" aria-hidden />
+      <BackgroundBlobs />
+      {/* Vignette: darkens the edges for a lens-like frame */}
       <div
-        className={cn(
-          "fixed inset-0 -z-10",
-          "bg-linear-to-b from-slate-50 via-white to-slate-50",
-          "dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"
-        )}
+        className="pointer-events-none fixed inset-0 -z-10"
+        style={{ background: "radial-gradient(ellipse at 50% 40%, transparent 55%, var(--vignette))" }}
         aria-hidden
       />
-      <BackgroundBlobs />
     </>
   );
 }

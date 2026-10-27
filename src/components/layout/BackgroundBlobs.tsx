@@ -1,29 +1,21 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
-
+// Slow-moving light beams. Pure CSS animation, so there is nothing to hydrate.
 export default function BackgroundBlobs() {
   return (
-    <>
-      <motion.div
-        initial={false}
-        className={cn(
-          "pointer-events-none fixed -top-16 left-6 h-72 w-72 rounded-full blur-3xl",
-          "bg-sky-500/15 dark:bg-sky-500/10 -z-10"
-        )}
-        animate={{ y: [0, 18, 0] }}
-        transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
+    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      <div
+        className="absolute -top-[30%] -left-[20%] h-[90vh] w-[70vw] rounded-full blur-3xl"
+        style={{
+          background: "radial-gradient(ellipse at center, var(--beam), transparent 65%)",
+          animation: "beam-drift 18s ease-in-out infinite",
+        }}
       />
-      <motion.div
-        initial={false}
-        className={cn(
-          "pointer-events-none fixed -top-10 right-8 h-80 w-80 rounded-full blur-3xl",
-          "bg-indigo-500/15 dark:bg-indigo-500/10 -z-10"
-        )}
-        animate={{ y: [0, -16, 0] }}
-        transition={{ duration: 7, ease: "easeInOut", repeat: Infinity }}
+      <div
+        className="absolute -top-[20%] right-[-25%] h-[70vh] w-[55vw] rounded-full blur-3xl opacity-60"
+        style={{
+          background: "radial-gradient(ellipse at center, var(--beam), transparent 65%)",
+          animation: "beam-drift 24s ease-in-out infinite reverse",
+        }}
       />
-    </>
+    </div>
   );
 }
