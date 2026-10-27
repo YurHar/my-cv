@@ -5,12 +5,16 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import type { LinkItem } from "@/lib/types";
 
 type Props = {
   title: string;
   description: string;
   tech: string[];
   link?: string;
+  period?: string;
+  context?: string;
+  links?: LinkItem[];
   maxChars?: number;
 };
 
@@ -19,6 +23,9 @@ export default function ProjectCard({
   description,
   tech,
   link,
+  period,
+  context,
+  links,
   maxChars = 140,
 }: Props) {
   const [expanded, setExpanded] = useState(false);
@@ -72,7 +79,14 @@ export default function ProjectCard({
 
       <CardHeader className="relative z-10">
         <div className="flex items-start justify-between gap-3">
-          <CardTitle className="text-slate-900 dark:text-slate-100">{title}</CardTitle>
+          <div className="min-w-0">
+            <CardTitle className="text-slate-900 dark:text-slate-100">{title}</CardTitle>
+            {period || context ? (
+              <p className="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400">
+                {[period, context].filter(Boolean).join(" · ")}
+              </p>
+            ) : null}
+          </div>
 
           {link ? (
             <Button
@@ -108,6 +122,24 @@ export default function ProjectCard({
       </CardHeader>
 
       <CardContent className="relative z-10">
+        {links?.length ? (
+          <ul className="mb-3 grid gap-1 text-sm">
+            {links.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-medium text-sky-700 dark:text-sky-300 hover:underline underline-offset-4"
+                >
+                  {l.label}
+                  <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+
         <div className="flex flex-wrap gap-2">
           {tech.map((t) => (
             <Badge

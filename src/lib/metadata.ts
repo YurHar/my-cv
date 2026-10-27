@@ -4,13 +4,13 @@ import type { Metadata, Viewport } from "next";
 export const SITE = {
   name: "Yuri.dev",
   description:
-    "Portfolio of Yuri Harutyunyan — building accessible, performant, user-friendly interfaces.",
+    "Senior Frontend Engineer with 5+ years building production React and TypeScript applications for government and enterprise platforms. Focused on frontend architecture, accessibility (WCAG 2.1), and performance.",
   url: "https://yuricv.netlify.app/", // ← set your real domain
   logoSvg: "/logo.svg",
 };
 
 export const siteMetadata: Metadata = {
-  title: `${SITE.name} — Front-End Developer`,
+  title: `${SITE.name} — Senior Frontend Engineer`,
   description: SITE.description,
   icons: {
     // Use the same SVG for all icon slots
@@ -20,7 +20,7 @@ export const siteMetadata: Metadata = {
     other: [{ rel: "mask-icon", url: SITE.logoSvg, color: "#0ea5e9" }], // for Safari pinned tabs
   },
   openGraph: {
-    title: `${SITE.name} — Front-End Developer`,
+    title: `${SITE.name} — Senior Frontend Engineer`,
     description: SITE.description,
     url: SITE.url,
     siteName: SITE.name,
@@ -28,7 +28,7 @@ export const siteMetadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: `${SITE.name} — Front-End Developer`,
+    title: `${SITE.name} — Senior Frontend Engineer`,
     description: SITE.description,
   },
 };

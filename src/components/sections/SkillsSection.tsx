@@ -55,18 +55,14 @@ export default function SkillsSection() {
           <PillCloud items={DATA_STATE} />
         </Tile>
 
-        <Tile title="Tooling" subtitle="Build, DX, and animations">
+        <Tile title="Tooling" subtitle="Workflow, design, and AI-assisted development">
           <PillCloud items={TOOLING} />
         </Tile>
 
         <Tile title="Capabilities" subtitle="What I’m especially good at">
           <ul className="space-y-3">
             {CAPABILITIES.map((c, i) => (
-              <CapabilityItem
-                key={typeof c === "string" ? c : c.label}
-                label={typeof c === "string" ? c : c.label}
-                index={i}
-              />
+              <CapabilityItem key={c} label={c} index={i} />
             ))}
           </ul>
         </Tile>

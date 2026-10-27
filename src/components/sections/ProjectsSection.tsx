@@ -7,6 +7,7 @@ import { Code2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PROJECTS } from "@/lib/data";
 import ProjectCard from "@/components/ui-composites/ProjectCard";
+import type { LinkItem } from "@/lib/types";
 
 type RawProject = {
   title?: string;
@@ -19,6 +20,9 @@ type RawProject = {
   link?: string;
   href?: string;
   url?: string;
+  period?: string;
+  context?: string;
+  links?: LinkItem[];
   [k: string]: any;
 };
 
@@ -27,6 +31,9 @@ type ProjectCardLike = {
   description: string;
   tech: string[];
   link?: string;
+  period?: string;
+  context?: string;
+  links?: LinkItem[];
 };
 
 function pickFirstString(...vals: Array<unknown>): string | undefined {
@@ -59,7 +66,10 @@ function normalizeProject(p: RawProject): ProjectCardLike | null {
 
   const link = pickFirstString(p.link, p.href, p.url);
 
-  return { title, description, tech, link };
+  const period = pickFirstString(p.period);
+  const context = pickFirstString(p.context);
+
+  return { title, description, tech, link, period, context, links: p.links };
 }
 
 function isExternal(url?: string) {
@@ -140,10 +150,19 @@ export default function ProjectsSection() {
                       description={p.description}
                       tech={p.tech}
                       link={p.link}
+                      period={p.period}
+                      context={p.context}
                     />
                   </Link>
                 ) : (
-                  <ProjectCard title={p.title} description={p.description} tech={p.tech} />
+                  <ProjectCard
+                    title={p.title}
+                    description={p.description}
+                    tech={p.tech}
+                    period={p.period}
+                    context={p.context}
+                    links={p.links}
+                  />
                 )}
               </div>
             </motion.div>

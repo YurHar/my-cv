@@ -21,8 +21,7 @@ const skills = [
 ];
 
 export default function Hero() {
-  const { name, role, avatar, links } = HERO;
-  const cvHref = links.cv ?? "/Yuri_HarutyunyanCV.pdf";
+  const { name, role, blurb, location, avatar, links } = HERO;
 
   return (
     <section
@@ -91,13 +90,24 @@ export default function Hero() {
           <div className="mt-2 mb-4 h-[3px] w-33 rounded-full bg-sky-600/60 dark:bg-sky-400/70" />
 
           <motion.p
-            className="text-slate-700 dark:text-sky-300/90 mb-6 text-lg"
+            className={cn("text-slate-700 dark:text-sky-300/90 text-lg", location ? "mb-1" : "mb-6")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             {role}
           </motion.p>
+
+          {location ? (
+            <motion.p
+              className="text-sm text-slate-500 dark:text-slate-400 mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.25, duration: 0.5 }}
+            >
+              {location}
+            </motion.p>
+          ) : null}
 
           <motion.div
             className="flex flex-wrap justify-center gap-2.5 sm:gap-3.5 mb-7"
@@ -121,12 +131,14 @@ export default function Hero() {
               </SocialIcon>
             ) : null}
 
-            <Button asChild className="rounded-xl font-medium px-4" title="Download CV">
-              <a href={cvHref} download target="_blank" rel="noreferrer" aria-label="Download CV">
-                <Download className="mr-2 h-4 w-4" />
-                Download CV
-              </a>
-            </Button>
+            {links.cv ? (
+              <Button asChild className="rounded-xl font-medium px-4" title="Download CV">
+                <a href={links.cv} download target="_blank" rel="noreferrer" aria-label="Download CV">
+                  <Download className="mr-2 h-4 w-4" />
+                  Download CV
+                </a>
+              </Button>
+            ) : null}
           </motion.div>
 
           <motion.p
@@ -135,8 +147,7 @@ export default function Hero() {
             transition={{ delay: 0.35, duration: 0.5 }}
             className="text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl text-pretty"
           >
-            Focused on performance and clarity, I transform design ideas into polished, responsive
-            interfaces with engaging interactions.
+            {blurb}
           </motion.p>
         </div>
       </motion.div>

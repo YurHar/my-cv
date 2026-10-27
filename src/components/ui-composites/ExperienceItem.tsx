@@ -7,18 +7,32 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Globe } from "lucide-react";
+import type { Experience } from "@/lib/types";
+
+function Bullets({ items }: { items: string[] }) {
+  return (
+    <>
+      {items.map((b, i) => (
+        <div
+          key={i}
+          className="flex items-start gap-2 text-sm text-muted-foreground"
+        >
+          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
+          <p>{b}</p>
+        </div>
+      ))}
+    </>
+  );
+}
 
 export default function ExperienceItem({
   role,
   company,
   time,
+  positions,
   bullets,
-}: {
-  role: string;
-  company: string;
-  time: string;
-  bullets: string[];
-}) {
+  projects,
+}: Experience) {
   return (
     <Card
       className={[
@@ -31,21 +45,46 @@ export default function ExperienceItem({
     >
       <CardHeader>
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <CardTitle className="text-lg">{role}</CardTitle>
+          <CardTitle className="text-lg">{role ?? company}</CardTitle>
           <Badge variant="outline">{time}</Badge>
         </div>
-        <CardDescription className="flex items-center gap-2">
-          <Globe className="h-4 w-4" /> {company}
-        </CardDescription>
+        {role ? (
+          <CardDescription className="flex items-center gap-2">
+            <Globe className="h-4 w-4" /> {company}
+          </CardDescription>
+        ) : null}
+        {positions?.length ? (
+          <div className="mt-1 grid gap-1">
+            {positions.map((p) => (
+              <div
+                key={p.title}
+                className="flex flex-wrap items-baseline justify-between gap-x-3 text-sm"
+              >
+                <span className="font-medium text-slate-800 dark:text-slate-200">
+                  {p.title}
+                </span>
+                <span className="text-muted-foreground">{p.time}</span>
+              </div>
+            ))}
+          </div>
+        ) : null}
       </CardHeader>
       <CardContent className="grid gap-2">
-        {bullets.map((b, i) => (
+        <Bullets items={bullets} />
+
+        {projects?.map((p) => (
           <div
-            key={i}
-            className="flex items-start gap-2 text-sm text-muted-foreground"
+            key={p.name}
+            className="mt-3 grid gap-2 border-l-2 border-sky-500/30 pl-3"
           >
-            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/60" />
-            <p>{b}</p>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+              <h4 className="font-medium text-slate-800 dark:text-slate-200">
+                {p.name}
+              </h4>
+              <span className="text-xs text-muted-foreground">{p.period}</span>
+            </div>
+            <p className="text-sm text-muted-foreground italic">{p.summary}</p>
+            <Bullets items={p.bullets} />
           </div>
         ))}
       </CardContent>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Briefcase } from "lucide-react";
-import { EXPERIENCE } from "@/lib/data";
+import { EXPERIENCE, EARLIER_EXPERIENCE, EDUCATION, LANGUAGES } from "@/lib/data";
 import ExperienceItem from "@/components/ui-composites/ExperienceItem";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -72,6 +72,68 @@ export default function ExperienceSection() {
           </motion.div>
         ))}
       </motion.div>
+
+      {/* Earlier experience (compact) */}
+      <div className="mt-12">
+        <h3 className="mb-4 text-lg font-semibold text-slate-900 dark:text-slate-100">
+          Earlier Experience
+        </h3>
+        <div className="space-y-3">
+          {EARLIER_EXPERIENCE.map((job) => (
+            <div
+              key={job.company}
+              className="rounded-2xl border border-slate-200/70 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 supports-backdrop-filter:backdrop-blur px-5 py-4"
+            >
+              <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                <p className="font-medium text-slate-800 dark:text-slate-200">
+                  {job.role} · <span className="font-normal text-muted-foreground">{job.company}</span>
+                </p>
+                <span className="text-xs text-muted-foreground">{job.time}</span>
+              </div>
+              {job.bullets.map((b) => (
+                <p key={b} className="mt-1 text-sm text-muted-foreground">
+                  {b}
+                </p>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Education & languages */}
+      <div className="mt-12">
+        <h3 className="mb-4 text-lg font-semibold text-slate-900 dark:text-slate-100">
+          Education &amp; Languages
+        </h3>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="rounded-2xl border border-slate-200/70 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 supports-backdrop-filter:backdrop-blur px-5 py-4">
+            <h4 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              Education &amp; Training
+            </h4>
+            <ul className="grid gap-1.5 text-sm">
+              {EDUCATION.map((e) => (
+                <li key={e.title}>
+                  <span className="text-slate-800 dark:text-slate-200">{e.title}</span>
+                  <span className="text-muted-foreground"> — {e.school}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-slate-200/70 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 supports-backdrop-filter:backdrop-blur px-5 py-4">
+            <h4 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              Languages
+            </h4>
+            <ul className="grid gap-1.5 text-sm">
+              {LANGUAGES.map((l) => (
+                <li key={l.name}>
+                  <span className="text-slate-800 dark:text-slate-200">{l.name}</span>
+                  <span className="text-muted-foreground"> — {l.level}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
